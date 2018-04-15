@@ -5,7 +5,7 @@ import './index.css';
 class CharacterInput extends React.Component {
   render() {
     return (
-      <input value={'L'} />
+      <input value={this.props.character} />
     );
   }
 }
@@ -15,7 +15,7 @@ class WordInput extends React.Component {
     var word = "LOVE";
     var indents = [];
     for (var i = 0; i < word.length; i++) {
-      indents.push(<input value={word[i]} />);
+      indents.push(<CharacterInput character = {word[i]} />);
     }
     return (
       <div>
