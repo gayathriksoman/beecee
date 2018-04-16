@@ -25,23 +25,31 @@ class WordInput extends React.Component {
   }
 }
 
+class WordHistory extends React.Component {
+  render() {
+    return (
+      <div className="left">
+          <div>
+            <h1>able</h1>
+            <h3>1b 1c</h3>
+          </div>
+          <div>
+            <h1>pole</h1>
+            <h3>2b 1c</h3>
+          </div>
+        </div>
+    );
+  }
+}
+
 
 class Game extends React.Component {
   render() {
     return (
       <div className="game">
-        <div className="left">
-          <div>
-            <h1>able</h1>
-            <h1>1b 1c</h1>
-          </div>
-          <div>
-            <h1>pole</h1>
-            <h1>2b 1c</h1>
-          </div>
-        </div>
+        <WordHistory />
         <div className="right">
-          <h1>Welcome</h1>
+          <h1>MasterMind</h1>
           <WordInput />
           <div className="buttonSet">
             <button>Next</button>
