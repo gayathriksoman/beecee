@@ -2,57 +2,87 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class CharacterInput extends React.Component {
-  render() {
-    return (
-      <input value={this.props.character} />
-    );
+function WordHistory(props){
+  var words = [];
+  if(props.wordHistory.length) {
+    props.wordHistory.forEach((wordObject, index) => {
+      if(wordObject['word'].length) {
+        words.push(<div key={index}>
+          <p>{wordObject['word']}</p>
+          <p>B: {wordObject['result']['B']} C: {wordObject['result']['C']}</p>
+        </div>);  
+      }  
+    })
   }
+  return (
+    <div className="left">
+      {words}
+    </div>
+  );
 }
-
-class WordInput extends React.Component {
-  render() {
-    var word = "LOVE";
-    var indents = [];
-    for (var i = 0; i < word.length; i++) {
-      indents.push(<CharacterInput character = {word[i]} />);
-    }
-    return (
-      <div>
-        {indents}
-      </div>
-    );
-  }
-}
-
-class WordHistory extends React.Component {
-  render() {
-    return (
-      <div className="left">
-          <div>
-            <h1>able</h1>
-            <h3>1b 1c</h3>
-          </div>
-          <div>
-            <h1>pole</h1>
-            <h3>2b 1c</h3>
-          </div>
-        </div>
-    );
-  }
-}
-
 
 class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputLetters : [],
+      wordHistory : [],
+      solutionWord : "LOVE"
+    };
+    this.submitWord = this.submitWord.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.calculateAnswer = this.calculateAnswer.bind(this);
+  }
+
+
+
+  submitWord() {
+      //TODO check empty submit
+      let result = this.calculateAnswer();
+      let wordSet = { 
+        'word': this.state.inputLetters, 
+        'result': result
+      };
+      this.state.wordHistory.push(wordSet);
+      this.setState({wordHistory:this.state.wordHistory});
+  }
+
+  handleChange(event) {
+    let inputLetterssliced = this.state.inputLetters.slice(); //copy the array
+    inputLetterssliced[event.target.id] = event.target.value; //execute the manipulations
+    this.setState({inputLetters: inputLetterssliced}) //set the new state
+  }
+
+  calculateAnswer() {
+    let word = this.state.inputLetters.map(letter => letter.toLocaleLowerCase());
+    let solutionWord = this.state.solutionWord.toLocaleLowerCase().split("");
+    let resultObject = { B : 0, C : 0 };
+    solutionWord.forEach(letter => {
+      if (word.indexOf(letter) === -1) {
+        //do nothing
+      }
+      else if (word.indexOf(letter) === solutionWord.indexOf(letter)) {
+        resultObject.B++;
+      }
+      else {
+        resultObject.C++;
+      }
+    });
+    return resultObject;
+  }
+
   render() {
     return (
       <div className="game">
-        <WordHistory />
+        <WordHistory wordHistory = {this.state.wordHistory}/>
         <div className="right">
           <h1>MasterMind</h1>
-          <WordInput />
+          <input type="text" value={this.state.inputLetters[0]} id={0} onChange={this.handleChange} />
+          <input type="text" value={this.state.inputLetters[1]} id={1} onChange={this.handleChange} />
+          <input type="text" value={this.state.inputLetters[2]} id={2} onChange={this.handleChange} />
+          <input type="text" value={this.state.inputLetters[3]} id={3} onChange={this.handleChange} />
           <div className="buttonSet">
-            <button>Next</button>
+            <button id="submit-btn" onClick={this.submitWord}>Submit</button>
             <button>Give Up</button>
           </div>
         </div>
@@ -61,7 +91,7 @@ class Game extends React.Component {
   }
 }
 
-// ========================================
+// ============================================================
 
 ReactDOM.render(
   <Game />,
