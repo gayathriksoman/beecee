@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Try extends React.Component {
+class TryCount extends React.Component {
   constructor(props) {
     super(props);
   }
   render (){
-    return(  <h2>TRY: {this.props.count}</h2>)
+    return(<h2> Try # {this.props.count}</h2>);
   }
 }
 
@@ -89,7 +89,7 @@ class Game extends React.Component {
         <WordHistory wordHistory = {this.state.wordHistory}/>
         <div className="right">
           <h1>MasterMind</h1>
-          <Try count = {this.state.count}/>
+          <TryCount count = {this.state.count}/>
           <input type="text" value={this.state.inputLetters[0]} id={0} onChange={this.handleChange} />
           <input type="text" value={this.state.inputLetters[1]} id={1} onChange={this.handleChange} />
           <input type="text" value={this.state.inputLetters[2]} id={2} onChange={this.handleChange} />
