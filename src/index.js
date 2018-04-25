@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class TryCount extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render (){
     return(<h2> Try # {this.props.count}</h2>);
   }
@@ -31,6 +28,7 @@ function WordHistory(props){
 }
 
 class Game extends React.Component {
+  count = 1;
   constructor(props) {
     super(props);
     this.state = {
@@ -53,7 +51,7 @@ class Game extends React.Component {
         'word': this.state.inputLetters, 
         'result': result
       };
-      this.state.count++;
+      this.setState({count: this.count++});
       this.state.wordHistory.push(wordSet);
       this.setState({wordHistory:this.state.wordHistory});
       this.setState({inputLetters:['','','','']});  //TODO: generealize to word count
