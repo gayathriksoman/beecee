@@ -2,6 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+class TryCount extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render (){
+    return(<h2> Try # {this.props.count}</h2>);
+  }
+}
+
 function WordHistory(props){
   var words = [];
   if(props.wordHistory.length) {
@@ -25,6 +34,7 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      count : 1,
       inputLetters : [],
       wordHistory : [],
       solutionWord : "LOVE"
@@ -43,8 +53,10 @@ class Game extends React.Component {
         'word': this.state.inputLetters, 
         'result': result
       };
+      this.state.count++;
       this.state.wordHistory.push(wordSet);
       this.setState({wordHistory:this.state.wordHistory});
+      this.setState({inputLetters:['','','','']});  //TODO: generealize to word count
   }
 
   handleChange(event) {
@@ -77,6 +89,7 @@ class Game extends React.Component {
         <WordHistory wordHistory = {this.state.wordHistory}/>
         <div className="right">
           <h1>MasterMind</h1>
+          <TryCount count = {this.state.count}/>
           <input type="text" value={this.state.inputLetters[0]} id={0} onChange={this.handleChange} />
           <input type="text" value={this.state.inputLetters[1]} id={1} onChange={this.handleChange} />
           <input type="text" value={this.state.inputLetters[2]} id={2} onChange={this.handleChange} />
