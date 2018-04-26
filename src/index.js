@@ -44,7 +44,7 @@ class Game extends React.Component {
 
 
   submitWord() {
-      //TODO check empty submit
+    if(this.checkInvalidInput()) {
       let result = this.calculateAnswer();
       let wordSet = { 
         'word': this.state.inputLetters, 
@@ -54,12 +54,19 @@ class Game extends React.Component {
       this.state.wordHistory.push(wordSet);
       this.setState({wordHistory:this.state.wordHistory});
       this.setState({inputLetters:['','','','']});  //TODO: generealize to word count
+    }
   }
 
   handleChange(event) {
     let inputLetterssliced = this.state.inputLetters.slice(); //copy the array
     inputLetterssliced[event.target.id] = event.target.value; //execute the manipulations
     this.setState({inputLetters: inputLetterssliced}) //set the new state
+  }
+
+  checkInvalidInput() {
+    if(!this.state.inputLetters.length || this.state.inputLetters.indexOf("")>-1)
+      return false;
+    return true;
   }
 
   calculateAnswer() {
