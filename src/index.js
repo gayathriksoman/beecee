@@ -64,7 +64,7 @@ class Game extends React.Component {
   }
 
   checkInvalidInput() {
-    if(!this.state.inputLetters.length || this.state.inputLetters.indexOf("")>-1)
+    if(!this.state.inputLetters.length || this.state.inputLetters.length < 4 || this.state.inputLetters.indexOf("")>-1)
       return false;
     return true;
   }
