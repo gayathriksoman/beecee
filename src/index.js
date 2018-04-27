@@ -2,9 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+import Button from 'material-ui/Button';
+import Input from 'material-ui/Input';
+import Paper from 'material-ui/Paper';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
+
+
 class TryCount extends React.Component {
   render (){
-    return(<h2> Try # {this.props.count}</h2>);
+    return(<p className="try-count"> Try # {this.props.count}</p>);
   }
 }
 
@@ -13,18 +20,19 @@ function WordHistory(props){
   if(props.wordHistory.length) {
     props.wordHistory.forEach((wordObject, index) => {
       if(wordObject['word'].length) {
-        words.push(<div key={index}>
+        words.push(<Paper key={index} className="history-paper">
           <p>{wordObject['word']}</p>
           <p>B: {wordObject['result']['B']} C: {wordObject['result']['C']}</p>
-        </div>);  
+        </Paper>);  
       }  
     })
+    return (
+      <div className="left">
+        {words}
+      </div>
+    );
   }
-  return (
-    <div className="left">
-      {words}
-    </div>
-  );
+  return (null);
 }
 
 class Game extends React.Component {
@@ -90,22 +98,24 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game">
-        <WordHistory wordHistory = {this.state.wordHistory}/>
         <div className="right">
-          <h1>MasterMind</h1>
-          <TryCount count = {this.state.count}/>
-          <input type="text" value={this.state.inputLetters[0]} id={0} onChange={this.handleChange} />
-          <input type="text" value={this.state.inputLetters[1]} id={1} onChange={this.handleChange} />
-          <input type="text" value={this.state.inputLetters[2]} id={2} onChange={this.handleChange} />
-          <input type="text" value={this.state.inputLetters[3]} id={3} onChange={this.handleChange} />
-          <div className="buttonSet">
-            <button id="submit-btn" onClick={this.submitWord}>Submit</button>
-            <button>Give Up</button>
-          </div>
+          <Card className="game-card">
+            <p className="heading">MasterMind</p>
+            <TryCount count = {this.state.count}/>
+            <Input type="text" placeholder="Type" inputProps={{maxLength: 1}} value={this.state.inputLetters[0]} id='0' onChange={this.handleChange} />
+            <Input type="text" placeholder="your" inputProps={{maxLength: 1}} value={this.state.inputLetters[1]} id='1' onChange={this.handleChange} />
+            <Input type="text" placeholder="answer" inputProps={{maxLength: 1}} value={this.state.inputLetters[2]} id='2' onChange={this.handleChange} />
+            <Input type="text" placeholder="here" inputProps={{maxLength: 1}} value={this.state.inputLetters[3]} id='3' onChange={this.handleChange} />
+            <CardActions className="buttonSet">
+              <Button id="submit-btn" color="primary"  variant="raised" onClick={this.submitWord}>Submit</Button>
+              <Button color="secondary"  variant="raised">Give Up</Button>
+            </CardActions>
+          </Card>
+          <WordHistory wordHistory = {this.state.wordHistory}/>
         </div>
       </div>
     );
-  }
+  } 
 }
 
 // ============================================================
