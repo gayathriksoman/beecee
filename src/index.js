@@ -15,7 +15,7 @@ class TryCount extends React.Component {
 }
 
 class WordHistory extends React.Component {
-  render (){
+    render (){
     let words = [];
     if(this.props.wordHistory.length) {
       this.props.wordHistory.forEach((wordObject, index) => {
@@ -68,7 +68,7 @@ class Game extends React.Component {
 
   handleChange(event) {
     let inputLetterssliced = this.state.inputLetters.slice(); //copy the array
-    inputLetterssliced[event.target.id] = event.target.value; //execute the manipulations
+    inputLetterssliced[event.target.id] = event.target.value.toUpperCase(); //execute the manipulations
     this.setState({inputLetters: inputLetterssliced}) //set the new state
   }
 
