@@ -60,7 +60,7 @@ class Game extends React.Component {
         'result': result
       };
       this.setState({count: this.state.count+1});
-      this.state.wordHistory.push(wordSet);
+      this.state.wordHistory.unshift(wordSet);
       this.setState({wordHistory:this.state.wordHistory});
       this.setState({inputLetters:['','','','']});  //TODO: generealize to word count
     }
