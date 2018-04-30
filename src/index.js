@@ -5,8 +5,7 @@ import './index.css';
 import Button from 'material-ui/Button';
 import Input from 'material-ui/Input';
 import Paper from 'material-ui/Paper';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
+import Card, { CardActions } from 'material-ui/Card';
 
 
 class TryCount extends React.Component {
@@ -15,24 +14,26 @@ class TryCount extends React.Component {
   }
 }
 
-function WordHistory(props){
-  var words = [];
-  if(props.wordHistory.length) {
-    props.wordHistory.forEach((wordObject, index) => {
-      if(wordObject['word'].length) {
-        words.push(<Paper key={index} className="history-paper">
-          <p>{wordObject['word']}</p>
-          <p>B: {wordObject['result']['B']} C: {wordObject['result']['C']}</p>
-        </Paper>);  
-      }  
-    })
-    return (
-      <div className="left">
-        {words}
-      </div>
-    );
+class WordHistory extends React.Component {
+  render (){
+    let words = [];
+    if(this.props.wordHistory.length) {
+      this.props.wordHistory.forEach((wordObject, index) => {
+        if(wordObject['word'].length) {
+          words.push(<Paper key={index} className="history-paper">
+            <p>{wordObject['word']}</p>
+            <p>B: {wordObject['result']['B']} C: {wordObject['result']['C']}</p>
+          </Paper>);  
+        }  
+      })
+      return (
+        <div className="left">
+          {words}
+        </div>
+      );
+    }
+    return (null);
   }
-  return (null);
 }
 
 class Game extends React.Component {
