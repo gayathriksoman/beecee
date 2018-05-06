@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
 import WordHistory from './wordhistory';
 
@@ -20,11 +19,23 @@ class Game extends React.Component {
             count: 1,
             inputLetters: [],
             wordHistory: [],
-            solutionWord: "SOUL"
+            solutionWord: "XXXX",
+            wordSetFlag: false
         };
+        this.solutionWord = "SOUL";
+        this.wordSetFlag = false;
         this.submitWord = this.submitWord.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.calculateAnswer = this.calculateAnswer.bind(this);
+    }
+
+    chooseRandomSolutionWord() {
+        if(this.state.wordSetFlag === false ){
+            let options = ['LOVE', 'SOUL', 'OPAL', 'CASE', 'HATE', 'CARE', 'NAME', 'MAIN'];
+            let chosenoption =  options[Math.floor(Math.random()*options.length)];
+            this.setState ({solutionWord :  chosenoption});
+            this.setState ({wordSetFlag : true});
+        }
     }
 
     submitWord() {
@@ -95,6 +106,7 @@ class Game extends React.Component {
     renderInputCard() {
         return (
             <Card className="game-card">
+                {this.chooseRandomSolutionWord()}
                 <p className="heading">MasterMind</p>
                 <TryCount count={this.state.count} />
                 {this.renderInputWord()}
