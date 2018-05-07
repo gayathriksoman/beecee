@@ -32,8 +32,8 @@ class Game extends React.Component {
     chooseRandomSolutionWord() {
         if(this.state.wordSetFlag === false ){
             let options = ['LOVE', 'SOUL', 'OPAL', 'CASE', 'HATE', 'CARE', 'NAME', 'MAIN'];
-            let chosenoption =  options[Math.floor(Math.random()*options.length)];
-            this.setState ({solutionWord :  chosenoption});
+            let chosenOption =  options[Math.floor(Math.random()*options.length)];
+            this.setState ({solutionWord :  chosenOption});
             this.setState ({wordSetFlag : true});
         }
     }
